@@ -43,11 +43,11 @@ The project is organized into several classes:
   ```
 3. Compile:
   ```bash
-  g++ main.cpp -o airline_reservation
+  g++ main.cpp -o project
   ```
 4. Run:
   ```bash
-  ./airline_reservation
+  ./project
   ```
 
 
