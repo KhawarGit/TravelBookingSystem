@@ -31,17 +31,20 @@ The project is organized into several classes:
 
 - C++ Compiler (e.g., g++)
 - Git
+  
 ## Getting Started
 1. Clone the Repository:
   ```bash
   git clone https://github.com/KhawarGit/CppOOPproject.git
   ```
 2. Navigate to the Program:
-   ```bash
-   cd CppOOPproject
+  ```bash
+  cd CppOOPproject
+  ```
 3. Compile:
-   ```bash
-   g++ main.cpp -o airline_reservation
+  ```bash
+  g++ main.cpp -o airline_reservation
+  ```
 4. Run:
   ```bash
   ./airline_reservation
