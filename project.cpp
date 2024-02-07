@@ -325,10 +325,6 @@ class car : protected Customer_info, protected Flight_Details{
 			cin>>destinationCar;	
 		}
 		
-		// Humare is program mein virtual bnana is not necessary.
-		// Aese hi overriding bhi dikha sakte hn.
-		// Just for understanding purpose. I have made this virtual function and then call the overrided function in the derived class from the pointer of the base class.
-		// Agr virtual nhi bnayen ge to derived class ke object se hi function call karna pare ga.
 		
 		virtual void print(Customer_info c,Flight_Details f1){
 			cout<<"Booking a Car";
@@ -863,23 +859,7 @@ int main()
 			char hc;
 			cin>>hc;
 			if(hc == 'Y' || hc == 'y'){
-				// This can also be done without using pointers but them we have to call the function from the derived class instance. Here , h1.
-				// h1.print(c1,f1);
-				// 
-				// NOTE: Agr yhan virtual function nhi bnaya hota to cb2ptr se jo print call karen ge woh car class ka print call hoga.
-				// NOTE: Agr virtual function bna hua hoga to cb2ptr se jo print call karen ge woh Hotel_Booking class ka hoga.
-				// VIRTUAL FUNCTION ko use karte hue hum dikha sakte hn Run time polymorphism.
-				// Or  LAte Binding , Dynamic Alocation.
-				// Function overriding using virtual functions.
-				// 
-				// Agr virtual bnane ke baad mujhe base class ka virtual hi call  karna h to , there are 2 ways:
-				// 1 => Base class ke instance se call karo.
-				// 2 => Base class ke pointer se call karo jo base class ke object ko hi point kar rha ho.
-				
-				// Agr virtual bnane ke baad derived class ka overrided function use karna h to :
-				// 1 => Using Derived class ki instance se call karlo.
-				// 2 => Using Derived class ka pointer pointing to derived class instance.
-				// 3 => Using Base class pointer pointing to derived class instance.
+			
 				cb2ptr->print(c1,f1);
 				
 			}
