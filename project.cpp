@@ -9,11 +9,11 @@ void Options()
 {
 
     cout << "\n\n\n"<< endl;
-    cout << "\t\t\t***************************" << endl;
-    cout << "\t\t\t Airline Ticketing System\n";
-    cout << "\t\t\t*************************** " << endl;
+    cout << "\t\t\t*******************************************" << endl;
+    cout << "\t\t\t FLIGHT RESERVATION AND BOOKING SYSTEM\n";
+	cout << "\t\t\t******************************************* " << endl;
 
-    cout << " \n\t\t\t 1 => Customer Details.\n\t\t\t 2 => Flight Registration.\n\t\t\t 3 => Ticket and Charges.  \n\t\t\t 4 => Cancel reservation and delete the details. \n\t\t\t 5 => Car Reservation  \n\t\t\t 6 => Exit.";
+    cout << " \n\t\t\t 1 => Customer Details.\n\t\t\t 2 => Flight Registration.\n\t\t\t 3 => Ticket and Charges.  \n\t\t\t 4 => Cancel reservation and delete the details. \n\t\t\t 5 => Car Reservation.  \n\t\t\t 6 => Hotel Stay Reservation.  \n\t\t\t 7 => Exit.";
     cout << "\n Choose Option: ";
 }
 
@@ -34,7 +34,7 @@ public:
 	Customer_info() : first_name(""),last_name(""),age(0),CNIC(0),passport_id(0),nationality(""),gender('0'){}
     friend class Ticket_and_Charges;
     friend class car;
-
+	friend class Hotel_Booking;
     friend istream &operator>>(istream &in, Customer_info &ci);
     friend ostream &operator<<(ostream &out, Customer_info &ci);
     bool operator ==(Customer_info c){
@@ -96,6 +96,7 @@ public:
 	Flight_Details() : Destination(11),Departure(4),Departure_time(0),Seat_Type(3){}
     friend class Ticket_and_Charges;
     friend class car;
+    friend class Hotel_Booking;
 
 	friend istream &operator>>(istream &in, Flight_Details &f1);
     friend ostream &operator<<(ostream &out, Flight_Details &f0);
@@ -111,7 +112,7 @@ public:
     string Departure_time_Karachi[4] = {"November 2,2022. Saturday 6:00 pm", "November 6,2022. Sunday 12:00 am", "November 10,2022. Wednesday 8:00 pm","Not Selected"};
     string Departure_time_Lahore[4] = {"October 1,2022. Saturday 12:00 pm", "October 8,2022. Monday 10:00 am", "October 15,2022. Thursday 3:00 pm","Not Selected"};
     string Departure_time_Islamabad[4] = {"August 4,2022. Saturday 3:00 pm", "August 10,2022. Tuesday 12:00 am", "August 17,2022. Friday 5:00 pm","Not Selected"};
-    string travelling[3] = {"Business Class", "Economy Class","Not Selected"};
+    string travelling[3] = {"Business Class (Extra Charges)", "Economy Class (Extra Charges)","Not Selected"};
     int prices[11] = {150000,110000,120000,130000,140000,150000,145000,135000,125000,105000,0};
     int Class_charges[2] = {40000,0};
 };
@@ -303,7 +304,7 @@ public:
 
 };
 class car : protected Customer_info, protected Flight_Details{
-	private:
+	protected:
 		
 		int carno=rand();
 		string name[10]={"Asfand","Akbar","Ali","Akhter","Bilal","Zahid","Rashid","Ahmer","Amin","Haris"};
@@ -323,7 +324,13 @@ class car : protected Customer_info, protected Flight_Details{
 			cout<<"Enter your Dropoff place: ";
 			cin>>destinationCar;	
 		}
-		void print(Customer_info c,Flight_Details f1){
+		
+		// Humare is program mein virtual bnana is not necessary.
+		// Aese hi overriding bhi dikha sakte hn.
+		// Just for understanding purpose. I have made this virtual function and then call the overrided function in the derived class from the pointer of the base class.
+		// Agr virtual nhi bnayen ge to derived class ke object se hi function call karna pare ga.
+		
+		virtual void print(Customer_info c,Flight_Details f1){
 			cout<<"Booking a Car";
 			static int v;
 			ofstream caroutFile;
@@ -343,10 +350,231 @@ class car : protected Customer_info, protected Flight_Details{
 	        caroutFile<<"*  - "<<"Pickup spot :"<<pickup[f1.Destination%7]<<"\n";
 	        caroutFile<<"*  - "<<"Destination Place : " <<destinationCar<<"                              \n";
 	        caroutFile<<"*  - "<<"Car plate number : " <<carno<<"                                   \n\n";
-	        caroutFile<<"NOTE : Fare would be generated according to the meter reading at the time of your ride."<<endl;
-	        cout<<"Your file has been saved with name Car_Reservation"<<v+1<<" and extension *.txt"<<endl;
+	        caroutFile<<"*  NOTE : Fare would be generated according to the meter reading at the time of your ride."<<endl;
+	        caroutFile<<"*  ------------------------------------------------------------------------------------------------- \n";
+        	caroutFile<<"*******************************************************************************************************"<<endl;
+    	
+			cout<<"Your file has been saved with name Car_Reservation"<<v+1<<" and extension *.txt"<<endl;
 	        v++;
 		}
+};
+class Hotel_Booking :public car{
+	
+	int Hotel_Selection;
+	int Days_booked;
+	string Address;
+	string custno;
+	string Hotel_name;
+	
+	string Hotel_America[5] = {"Hotel Casino","St.Luis Hotel","Magnolia Hotel","Hampton Inn","The Westin"};
+	int price_Hotel_America[5] = {31000,38000,45000,41500,50000};
+	string Address_Hotel_America[5] = {" Casino Center Dr, Maryland Heights","421 North 8th Street, Saint Louis","333 Washington Avenue","705 Olive St","811 Spruce St"};
+	string Hotel_South_Korea[3] = {"Grand InterContinental","The PLAZA","LOTTE City Hotel"};
+	int price_Hotel_South_Korea[3] = {30000,39000,45000};
+	string Address_Hotel_South_Korea[3] = {"Samseong-dong","Seoul","Myeongdong"};
+	string Hotel_China[4] = {"Intercontinental Ghuanzhou","The Ritz Carlton","Ascott Huai Hai","Somerset Riverview"};
+	int price_Hotel_China[4] = {29000,32000,35000,44000};
+	string Address_Hotel_China[4] = {"Close to Canton Fair Exhibition Centre","Xian","Shanghai","Chengdu"};
+	string Hotel_Turkey[3] = {"Divan Cukurhan","Lazzoni Hotel","Biblos Alacati"};
+	int price_Hotel_Turkey[3] = {24000,27000,29000};
+	string Address_Hotel_Turkey[3] = {"Kayakapi","Kapadokya","Istanbul"};
+	string Hotel_Dubai[4] = {"Raffles The Palm Dubai","Al Ghurair Hotel","Grand Hyatt Dubai","Raffles Dubai"};
+	int price_Hotel_Dubai[4] = {34000,35000,40000,39000};
+	string Address_Hotel_Dubai[4] = {"Near Dubai Mall","Near King Abdul Aziz University","Near Dubai Exhibition","Sharjah"};
+	string Hotel_Jaddah[2] = {"Crown Plaza","Prime Al-Hamra Hotel"};
+	int price_Hotel_Jaddah[2] = {39000,40000};
+	string Address_Hotel_Jaddah[2] = {"Near Jeddah business district","At Al-Hamra"};
+	string Hotel_London[5] = {"Hotel Casino","St.Luis Hotel","Magnolia Hotel","Hampton Inn","The Westin"};
+	int price_Hotel_London[5] = {31000,38000,45000,41500,50000};
+	string Address_Hotel_London[5] = {" Casino Center Dr, Maryland Heights","421 North 8th Street, Saint Louis","333 Washington Avenue","705 Olive St","811 Spruce St"};
+	string Hotel_Canada[4] = {"Holiday Inn","Applause Hotel","Motel Manoir","Monsieur Jean"};
+	int price_Hotel_Canada[4] = {30000,31000,30000,35000};
+	string Address_Hotel_Canada[4] = {"Toronto","Calgary","Sainte Anne des Monts","Quebec city"};
+	string Hotel_Japan[3] = {"KIRO Hiroshima","Hotel Classe Stay Sapporo","Condominium MIRAHAKONE"};
+	int price_Hotel_Japan[3] = {30000,35000,39000};
+	string Address_Hotel_Japan[3] = {"Hiroshima","Susukino","Hakone Yumoto Onsen"};
+	string Hotel_Nepal[2] = {"Hotel Wawa","Everland Kathmandu Hotel"};
+	int price_Hotel_Nepal[2] = {25000,28000};
+	string Address_Hotel_Nepal[2] = {"Lazmipat,Kathmandu","Thamel,Kathmandu"};
+	public:
+		
+		Hotel_Booking() : Hotel_Selection(0),Days_booked(0){}
+
+		void select_Hotel(Flight_Details f1){
+			cout<<"Enter your Contact number: "<<endl;
+			cin>>custno;
+			system("CLS");
+			cout << "\t\t\t ********************************************************* " << endl;
+		    cout << "\t\t\t           AVAILABLE HOTELS IN "<<f1.destinations[f1.Destination-1]<<"            " << endl;
+		    cout << "\t\t\t ********************************************************* " << endl;
+			
+			string a = f1.destinations[f1.Destination-1];
+			if(a == "America"){
+				for(int i = 0;i<5;i++){
+					cout<<i+1<<" : "<<Hotel_America[i]<<"\t\t\t\t"<<"Rs."<<price_Hotel_America[i]<<" per day"<<"\t\t\t\t"<<Address_Hotel_America[i]<<endl;
+				}
+				
+			}else if(a == "South Korea"){
+				for(int i = 0;i<3;i++){
+					cout<<i+1<<" : "<<Hotel_South_Korea[i]<<"\t\t\t\t"<<"Rs."<<price_Hotel_South_Korea[i]<<" per day"<<"\t\t\t\t"<<Address_Hotel_South_Korea[i]<<endl;
+				}
+			}else if(a == "China"){
+				for(int i = 0;i<4;i++){
+					cout<<i+1<<" : "<<Hotel_China[i]<<"\t\t\t\t"<<"Rs."<<price_Hotel_China[i]<<" per day"<<"\t\t\t\t"<<Address_Hotel_China[i]<<endl;
+				}
+			}else if(a == "Turkey"){
+				for(int i = 0;i<3;i++){
+					cout<<i+1<<" : "<<Hotel_Turkey[i]<<"\t\t\t\t"<<"Rs."<<price_Hotel_Turkey[i]<<" per day"<<"\t\t\t\t"<<Address_Hotel_Turkey[i]<<endl;
+				}
+			}else if(a == "Dubai"){
+				for(int i = 0;i<4;i++){
+					cout<<i+1<<" : "<<Hotel_Dubai[i]<<"\t\t\t\t"<<"Rs."<<price_Hotel_Dubai[i]<<" per day"<<"\t\t\t\t"<<Address_Hotel_Dubai[i]<<endl;
+				}
+			}else if(a == "Jaddah"){
+				for(int i = 0;i<2;i++){
+					cout<<i+1<<" : "<<Hotel_Jaddah[i]<<"\t\t\t\t"<<"Rs."<<price_Hotel_Jaddah[i]<<" per day"<<"\t\t\t\t"<<Address_Hotel_Jaddah[i]<<endl;
+				}
+			}else if(a == "London"){
+				for(int i = 0;i<5;i++){
+					cout<<i+1<<" : "<<Hotel_London[i]<<"\t\t\t\t"<<"Rs."<<price_Hotel_London[i]<<" per day"<<"\t\t\t\t"<<Address_Hotel_London[i]<<endl;
+				}
+			}else if(a == "Canada"){
+				for(int i = 0;i<4;i++){
+					cout<<i+1<<" : "<<Hotel_Canada[i]<<"\t\t\t\t"<<"Rs."<<price_Hotel_Canada[i]<<" per day"<<"\t\t\t\t"<<Address_Hotel_Canada[i]<<endl;
+				}
+			}else if(a == "Japan"){
+				for(int i = 0;i<3;i++){
+					cout<<i+1<<" : "<<Hotel_Japan[i]<<"\t\t\t\t"<<"Rs."<<price_Hotel_Japan[i]<<" per day"<<"\t\t\t\t"<<Address_Hotel_Japan[i]<<endl;
+				}
+			}else if(a == "Nepal"){
+				for(int i = 0;i<2;i++){
+					cout<<i+1<<" : "<<Hotel_Nepal[i]<<"\t\t\t\t"<<"Rs."<<price_Hotel_Nepal[i]<<" per day"<<"\t\t\t\t"<<Address_Hotel_Nepal[i]<<endl;
+				}
+			}
+			cout<<"Enter your selection"<<endl;
+			cin>>Hotel_Selection;
+			cout<<"For how many days you want to book the hotel?(Enter in number)"<<endl;
+			cin>>Days_booked;
+			
+		}
+		bool operator ==(Hotel_Booking h1){
+			if(Hotel_Selection == h1.Hotel_Selection && Days_booked == h1.Days_booked){
+				return true;
+			}else{
+				return false;
+			}
+		}
+		void Print_Hotel(Customer_info c,Flight_Details f1){
+			
+			int Charges_per_day;
+			int Total_charges;
+			
+		
+			if(f1.destinations[f1.Destination-1] == "America"){
+				Hotel_name = Hotel_America[Hotel_Selection-1];
+				Charges_per_day = price_Hotel_America[Hotel_Selection-1];
+				Address = Address_Hotel_America[Hotel_Selection-1];
+				Total_charges = Charges_per_day*Days_booked;
+			}else if(f1.destinations[f1.Destination-1] == "South Korea"){
+				Hotel_name = Hotel_South_Korea[Hotel_Selection-1];
+				Charges_per_day = price_Hotel_South_Korea[Hotel_Selection-1];
+				Address = Address_Hotel_South_Korea[Hotel_Selection-1];
+				Total_charges = Charges_per_day*Days_booked;
+			}else if(f1.destinations[f1.Destination-1] == "China"){
+				Hotel_name = Hotel_China[Hotel_Selection-1];
+				Charges_per_day = price_Hotel_China[Hotel_Selection-1];
+				Address = Address_Hotel_China[Hotel_Selection-1];
+				Total_charges = Charges_per_day*Days_booked;
+			}else if(f1.destinations[f1.Destination-1] == "Turkey"){
+				Hotel_name = Hotel_Turkey[Hotel_Selection-1];
+				Charges_per_day = price_Hotel_Turkey[Hotel_Selection-1];
+				Address = Address_Hotel_Turkey[Hotel_Selection-1];
+				Total_charges = Charges_per_day*Days_booked;
+			}else if(f1.destinations[f1.Destination-1] == "Dubai"){
+				Hotel_name = Hotel_Dubai[Hotel_Selection-1];
+				Charges_per_day = price_Hotel_Dubai[Hotel_Selection-1];
+				Address = Address_Hotel_Dubai[Hotel_Selection-1];
+				Total_charges = Charges_per_day*Days_booked;
+			}else if(f1.destinations[f1.Destination-1] == "Jaddah"){
+				Hotel_name = Hotel_Jaddah[Hotel_Selection-1];
+				Charges_per_day = price_Hotel_Jaddah[Hotel_Selection-1];
+				Address = Address_Hotel_Jaddah[Hotel_Selection-1];
+				Total_charges = Charges_per_day*Days_booked;
+			}else if(f1.destinations[f1.Destination-1] == "London"){
+				Hotel_name = Hotel_London[Hotel_Selection-1];
+				Charges_per_day = price_Hotel_London[Hotel_Selection-1];
+				Address = Address_Hotel_London[Hotel_Selection-1];
+				Total_charges = Charges_per_day*Days_booked;
+			}else if(f1.destinations[f1.Destination-1] == "Canada"){
+				Hotel_name = Hotel_Canada[Hotel_Selection-1];
+				Charges_per_day = price_Hotel_Canada[Hotel_Selection-1];
+				Address = Address_Hotel_Canada[Hotel_Selection-1];
+				Total_charges = Charges_per_day*Days_booked;
+			}else if(f1.destinations[f1.Destination-1] == "Japan"){
+				Hotel_name = Hotel_Japan[Hotel_Selection-1];
+				Charges_per_day = price_Hotel_Japan[Hotel_Selection-1];
+				Address = Address_Hotel_Japan[Hotel_Selection-1];
+				Total_charges = Charges_per_day*Days_booked;
+			}else if(f1.destinations[f1.Destination-1] == "Nepal"){
+				Hotel_name = Hotel_Nepal[Hotel_Selection-1];
+				Charges_per_day = price_Hotel_Nepal[Hotel_Selection-1];
+				Address = Address_Hotel_Nepal[Hotel_Selection-1];
+				Total_charges = Charges_per_day*Days_booked;
+			}
+			
+			static int d;	
+			ofstream houtFile;
+			string a = "Stay Booking_"+to_string(d+1)+".txt";
+	        houtFile.open(a);
+	        
+	        houtFile<<"*******************************************************************************************************\n";
+	        houtFile<<"*  ----------------------------------CUSTOMER DETAILS-----------------------------------------------  \n";
+	        houtFile<<"*  - First Name : "<<c.first_name<<"                "<<"\n*  - Last Name : "<<c.last_name<<"            \n";
+	        houtFile<<"*  - Age : "<<c.age<<"                              "<<"\n*  - Gender : "<<c.gender<<"                  \n";
+	        houtFile<<"*  - CNIC : "<<c.CNIC<<"                            "<<"\n*  - Nationality : "<<c.nationality<<"        \n";
+	        houtFile<<"*  - Passport ID : "<<c.passport_id<<"               \n*  - Customer ID : "<<d+1<<"                     \n";
+	        
+	        houtFile<<"*  -------------------------------------------------------------------------------------------------  \n\n";
+	        houtFile<<"*  ---------------------------------STAY BOOKING---------------------------------------------------  \n";
+			houtFile<<"*  - Hotel Name : "<<Hotel_name<<"\n";
+			houtFile<<"*  - Hotel Address : "<<Address<<"\n";
+			houtFile<<"*  - Charges per day : Rs."<<Charges_per_day<<"\n";
+			houtFile<<"*  - Booked Days: "<<Days_booked<<"\n";
+			houtFile<<"*  - Total Charges: Rs."<<Total_charges<<"\n";
+			houtFile<<"*  ------------------------------------------------------------------------------------------------- \n";
+        	houtFile<<"*******************************************************************************************************"<<endl;
+    		cout<<"Your hotel is booked successfully."<<endl;
+			cout<<"Your file has been saved with name Stay Booking_"<<d+1<<" and extension *.txt"<<endl;
+			d++;
+		}	
+		void print(Customer_info c,Flight_Details f1){
+			cout<<"Booking a Car";
+			static int v;
+			ofstream caroutFile;
+			string file = "Car_Reservation"+to_string(v+1)+".txt";
+	        caroutFile.open(file);
+	        
+	        caroutFile<<"*******************************************************************************************************\n";
+	        caroutFile<<"*  ----------------------------------CUSTOMER DETAILS-----------------------------------------------  \n";
+	        caroutFile<<"*  - First Name : "<<c.first_name<<"                "<<"\n*  - Last Name : "<<c.last_name<<"            \n";
+	        caroutFile<<"*  - Age : "<<c.age<<"                              "<<"\n*  - Gender : "<<c.gender<<"                  \n";
+	        caroutFile<<"*  - CNIC : "<<c.CNIC<<"                            "<<"\n*  - Nationality : "<<c.nationality<<"        \n";
+	        caroutFile<<"*  - Passport ID : "<<c.passport_id<<"               \n*  - Customer ID : "<<v+1<<"                     \n";
+	        caroutFile<<"*  - Contact No :"<<custno<<"                     \n";
+	        caroutFile<<"*  -------------------------------------------------------------------------------------------------  \n\n";
+	        caroutFile<<"*  ---------------------------------RIDE INFORMATION----------------------------------------------  \n";
+	        caroutFile<<"*  - "<<"Driver's Name : "<<name[f1.Destination-1]<<"\n";
+	        caroutFile<<"*  - "<<"Pickup spot :"<<pickup[f1.Destination%7]<<"\n";
+	        caroutFile<<"*  - "<<"Hotel Name: "<<Hotel_name<<"\n";
+			caroutFile<<"*  - "<<"Destination Place : " <<Address<<"                              \n";
+	        caroutFile<<"*  - "<<"Car plate number : " <<carno<<"                                   \n\n";
+	        caroutFile<<"*  NOTE : Fare would be generated according to the meter reading at the time of your ride."<<endl;
+	        caroutFile<<"*  ------------------------------------------------------------------------------------------------- \n";
+        	caroutFile<<"*******************************************************************************************************"<<endl;
+    		cout<<"Your ride is booked from the airport to "<<Address<<endl;
+			cout<<"Your file has been saved with name Car_Reservation"<<v+1<<" and extension *.txt"<<endl;
+	        v++;
+		}		
 };
 
 int main()
@@ -358,6 +586,12 @@ int main()
     Customer_info c2;
     Flight_Details f2;
     car cb1;
+    Hotel_Booking h1;
+    Hotel_Booking h2;
+    // Just for understanding pointers in polymorphism.
+	car *cb2ptr; // POinter of car class(NOTE: car class is the base class for Hotel_Booking class)
+    cb2ptr = &h1;  // Pointer of car class pointing to the Instance of derived class i.e. storing the address of derived class object.
+    
     cout<<"************************** Welcome To Airline Ticket Reservation. ***********************************"<<endl;
 	while (true){
     int command;
@@ -562,6 +796,99 @@ int main()
 		break;
 
 	case 6:
+		if(c1 == c2 && f1 == f2){
+			cout<<"You should first enter your personal information and flight details."<<endl; 
+			char cf;
+			cout<<"DO you want to enter the information and book a seat now?(Y/N)"<<endl;
+			cin>>cf;
+			if(cf == 'Y' || cf == 'y'){
+				
+				system("CLS");
+				cout<<"Enter your information."<<endl;
+				cin>>c1;
+				system("pause");
+				system("CLS");
+				cout<<"Now enter flight details."<<endl;
+				cin>>f1;
+				cout<<"Now book the Hotel."<<endl;
+				h1.select_Hotel(f1);
+				h1.Print_Hotel(c1,f1);
+			}else{
+				cout<<"Your hotel can not booked without the details."<<endl;
+				
+			}
+		}else if(!(c1 == c2) && (f1 == f2)){
+			cout<<"You must enter your flight details to book the hotel according to the your destination."<<endl;
+			cout<<"Do you want to enter the flight information now?(Y/N)"<<endl;
+			char f;
+			cin>>f;
+			if(f == 'Y' || f == 'y'){
+				
+				system("CLS");
+				cin>>f1;
+				
+				cout<<"Now you can book the hotel."<<endl;
+				h1.select_Hotel(f1);
+				h1.Print_Hotel(c1,f1);
+			}else{
+				cout<<"Your hotel can not booked without the details."<<endl;
+			}
+		}else if((c1 == c2) && !(f1 == f2)){
+			cout<<"You must enter your information before booking the hotel."<<endl;
+			cout<<"Do you want to enter the your information now?(Y/N)"<<endl;
+			char c;
+			cin>>c;
+			if(c == 'Y' || c == 'y'){
+				system("pause");
+				system("CLS");
+				cin>>c1;
+				system("pause");
+				system("CLS");
+				cout<<"Now you can book the hotel."<<endl;
+				h1.select_Hotel(f1);
+				h1.Print_Hotel(c1,f1);
+			}else{
+				cout<<"Your hotel can not booked without the details."<<endl;
+			}
+		
+		}else if(!(c1==c2) && !(f1==f2)){
+			h1.select_Hotel(f1);
+			h1.Print_Hotel(c1,f1);
+		}
+
+		if(!(h1 == h2)){
+			system("pause");
+			system("CLS");
+			cout<<"Do you want to book a car to the hotel from the airport?(Y/N)"<<endl;
+			char hc;
+			cin>>hc;
+			if(hc == 'Y' || hc == 'y'){
+				// This can also be done without using pointers but them we have to call the function from the derived class instance. Here , h1.
+				// h1.print(c1,f1);
+				// 
+				// NOTE: Agr yhan virtual function nhi bnaya hota to cb2ptr se jo print call karen ge woh car class ka print call hoga.
+				// NOTE: Agr virtual function bna hua hoga to cb2ptr se jo print call karen ge woh Hotel_Booking class ka hoga.
+				// VIRTUAL FUNCTION ko use karte hue hum dikha sakte hn Run time polymorphism.
+				// Or  LAte Binding , Dynamic Alocation.
+				// Function overriding using virtual functions.
+				// 
+				// Agr virtual bnane ke baad mujhe base class ka virtual hi call  karna h to , there are 2 ways:
+				// 1 => Base class ke instance se call karo.
+				// 2 => Base class ke pointer se call karo jo base class ke object ko hi point kar rha ho.
+				
+				// Agr virtual bnane ke baad derived class ka overrided function use karna h to :
+				// 1 => Using Derived class ki instance se call karlo.
+				// 2 => Using Derived class ka pointer pointing to derived class instance.
+				// 3 => Using Base class pointer pointing to derived class instance.
+				cb2ptr->print(c1,f1);
+				
+			}
+		}
+		system("pause");
+		system("CLS");
+		
+		break;
+	case 7:
 
 
 		cout<<"Are you sure you want to exit ?"<<endl;
