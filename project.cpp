@@ -548,7 +548,7 @@ class Hotel_Booking :public car{
 			d++;
 		}	
 		void print(Customer_info c,Flight_Details f1){
-			cout<<"Booking a Car";
+			cout<<"Booking a Car"<<endl;
 			static int v;
 			ofstream caroutFile;
 			string file = "Car_Reservation"+to_string(v+1)+".txt";
