@@ -33,19 +33,20 @@ The project is organized into several classes:
 - Git
   
 ## Getting Started
-1. Clone the Repository:
+1. Open a terminal Window.
+2. Clone the Repository:
   ```bash
   git clone https://github.com/KhawarGit/CppOOPproject.git
   ```
-2. Navigate to the Program:
+3. Navigate to the Program:
   ```bash
   cd CppOOPproject
   ```
-3. Compile:
+4. Compile:
   ```bash
   g++ main.cpp -o project
   ```
-4. Run:
+5. Run:
   ```bash
   ./project
   ```
