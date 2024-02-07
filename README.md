@@ -50,5 +50,9 @@ The project is organized into several classes:
   ```bash
   ./project
   ```
+## Usage
+Follow the on-screen prompts to navigate through the menu and interact with the Airline Ticket Reservation System.
 
+## Author
+Khawar Khan
 
