@@ -875,12 +875,12 @@ int main()
     	cout<<"Press Any key to Revert Back or \'Enter\' key to exit"<<endl;
     	char q='a';
     	q=getche();
-    	if(q=='0'){
-    		system("CLS");
-			break;
-		}else if(q=='\r'){
+		if(q=='\r'){
 			cout<<"**************************** Thanks for using our Application. ***********************************"<<endl;
 			exit(0);
+			break;
+		} else{
+			system("CLS");
 			break;
 		}
 		cout<<endl;
