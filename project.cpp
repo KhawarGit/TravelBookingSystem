@@ -888,7 +888,9 @@ int main()
 		cout<<endl;
 		break;
 	default:
+		system("CLS");
         	cout << "Please select the range from 1-7." << endl;
+	    	break;
         
     }
     }
