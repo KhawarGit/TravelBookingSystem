@@ -875,7 +875,7 @@ int main()
 
 		cout<<"Are you sure you want to exit ?"<<endl;
     	cout<<"Press Any key to Revert Back or \'Enter\' key to exit"<<endl;
-    	char q='a';
+    	char q;
     	q=getche();
 		if(q=='\r'){
 			cout<<"**************************** Thanks for using our Application. ***********************************"<<endl;
