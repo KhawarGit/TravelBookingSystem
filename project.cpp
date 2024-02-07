@@ -885,8 +885,8 @@ int main()
 		}
 		cout<<endl;
 		break;
-	Default:
-        cout << "Please select the range from 1-5." << endl;
+	default:
+        	cout << "Please select the range from 1-7." << endl;
         
     }
     }
