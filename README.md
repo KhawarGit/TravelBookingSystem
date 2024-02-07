@@ -25,16 +25,26 @@ The project is organized into several classes:
 - `Hotel_Booking`: Implements hotel booking functionality.
 - `Ticket_and_Charges`: Manages ticket generation and charges.
 
-## Getting Started
 
-### Prerequisites
+
+## Prerequisites
 
 - C++ Compiler (e.g., g++)
 - Git
+## Getting Started
+1. Clone the Repository:
+  ```bash
+  git clone https://github.com/KhawarGit/CppOOPproject.git
+  ```
+2. Navigate to the Program:
+   ```bash
+   cd CppOOPproject
+3. Compile:
+   ```bash
+   g++ main.cpp -o airline_reservation
+4. Run:
+  ```bash
+  ./airline_reservation
+  ```
 
-### Clone the Repository
-
-```bash
-git clone https://github.com/KhawarGit/CppOOPproject.git
-cd CppOOPproject
 
