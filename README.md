@@ -36,11 +36,11 @@ The project is organized into several classes:
 1. Open a terminal Window.
 2. Clone the Repository:
   ```bash
-  git clone https://github.com/KhawarGit/CppOOPproject.git
+  git clone https://github.com/KhawarGit/TravelBookingSystem.git
   ```
 3. Navigate to the Program:
   ```bash
-  cd CppOOPproject
+  cd TravelBookingSystem
   ```
 4. Compile:
   ```bash
