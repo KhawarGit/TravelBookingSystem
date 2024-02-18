@@ -382,47 +382,59 @@ class car : protected Customer_info, protected Flight_Details{
 };
 // Hotel Booking class which inherits the car class also override its print function.
 class Hotel_Booking :public car{
-	
+	// Private by default
+// If donot provide visibility in Cpp Class, the attributess will be by default private.
 	int Hotel_Selection;
 	int Days_booked;
 	string Address;
 	string custno;
 	string Hotel_name;
-	
+	// Dummy Data : American Hotels, Prices, and Addresses Arrays 
 	string Hotel_America[5] = {"Hotel Casino","St.Luis Hotel","Magnolia Hotel","Hampton Inn","The Westin"};
 	int price_Hotel_America[5] = {31000,38000,45000,41500,50000};
 	string Address_Hotel_America[5] = {" Casino Center Dr, Maryland Heights","421 North 8th Street, Saint Louis","333 Washington Avenue","705 Olive St","811 Spruce St"};
+        // Dummy Data : South KOrea Hotels, Prices, and Addresses Arrays
 	string Hotel_South_Korea[3] = {"Grand InterContinental","The PLAZA","LOTTE City Hotel"};
 	int price_Hotel_South_Korea[3] = {30000,39000,45000};
 	string Address_Hotel_South_Korea[3] = {"Samseong-dong","Seoul","Myeongdong"};
+        // Dummy Data : China Hotels, Prices, and Addresses Arrays
 	string Hotel_China[4] = {"Intercontinental Ghuanzhou","The Ritz Carlton","Ascott Huai Hai","Somerset Riverview"};
 	int price_Hotel_China[4] = {29000,32000,35000,44000};
 	string Address_Hotel_China[4] = {"Close to Canton Fair Exhibition Centre","Xian","Shanghai","Chengdu"};
+        // Dummy Data : Turkey Hotels, Prices, and Addresses Arrays
 	string Hotel_Turkey[3] = {"Divan Cukurhan","Lazzoni Hotel","Biblos Alacati"};
 	int price_Hotel_Turkey[3] = {24000,27000,29000};
 	string Address_Hotel_Turkey[3] = {"Kayakapi","Kapadokya","Istanbul"};
+        // Dummy Data : Dubai Hotels, Prices, and Addresses Arrays
 	string Hotel_Dubai[4] = {"Raffles The Palm Dubai","Al Ghurair Hotel","Grand Hyatt Dubai","Raffles Dubai"};
 	int price_Hotel_Dubai[4] = {34000,35000,40000,39000};
 	string Address_Hotel_Dubai[4] = {"Near Dubai Mall","Near King Abdul Aziz University","Near Dubai Exhibition","Sharjah"};
+        // Dummy Data : Jeddah Hotels, Prices, and Addresses Arrays
 	string Hotel_Jaddah[2] = {"Crown Plaza","Prime Al-Hamra Hotel"};
 	int price_Hotel_Jaddah[2] = {39000,40000};
 	string Address_Hotel_Jaddah[2] = {"Near Jeddah business district","At Al-Hamra"};
+        // Dummy Data : London Hotels, Prices, and Addresses Arrays
 	string Hotel_London[5] = {"Hotel Casino","St.Luis Hotel","Magnolia Hotel","Hampton Inn","The Westin"};
 	int price_Hotel_London[5] = {31000,38000,45000,41500,50000};
 	string Address_Hotel_London[5] = {" Casino Center Dr, Maryland Heights","421 North 8th Street, Saint Louis","333 Washington Avenue","705 Olive St","811 Spruce St"};
+        // Dummy Data : Canada Hotels, Prices, and Addresses Arrays
 	string Hotel_Canada[4] = {"Holiday Inn","Applause Hotel","Motel Manoir","Monsieur Jean"};
 	int price_Hotel_Canada[4] = {30000,31000,30000,35000};
 	string Address_Hotel_Canada[4] = {"Toronto","Calgary","Sainte Anne des Monts","Quebec city"};
+        // Dummy Data : Japan Hotels, Prices, and Addresses Arrays
 	string Hotel_Japan[3] = {"KIRO Hiroshima","Hotel Classe Stay Sapporo","Condominium MIRAHAKONE"};
 	int price_Hotel_Japan[3] = {30000,35000,39000};
 	string Address_Hotel_Japan[3] = {"Hiroshima","Susukino","Hakone Yumoto Onsen"};
+        // Dummy Data : Nepal Hotels, Prices, and Addresses Arrays
 	string Hotel_Nepal[2] = {"Hotel Wawa","Everland Kathmandu Hotel"};
 	int price_Hotel_Nepal[2] = {25000,28000};
 	string Address_Hotel_Nepal[2] = {"Lazmipat,Kathmandu","Thamel,Kathmandu"};
+// Public operations.
 	public:
-		
+		// Constructor
 		Hotel_Booking() : Hotel_Selection(0),Days_booked(0){}
-
+               // Operation for Hotel Class for Selecting a hotel of selected destination, for booking, for stay.
+               // and for booking the hotel for specified days.
 		void select_Hotel(Flight_Details f1){
 			cout<<"Enter your Contact number: "<<endl;
 			cin>>custno;
@@ -432,6 +444,7 @@ class Hotel_Booking :public car{
 		    cout << "\t\t\t ********************************************************* " << endl;
 			
 			string a = f1.destinations[f1.Destination-1];
+			//Providing option for hotels according to the selected destination.
 			if(a == "America"){
 				for(int i = 0;i<5;i++){
 					cout<<i+1<<" : "<<Hotel_America[i]<<"\t\t\t\t"<<"Rs."<<price_Hotel_America[i]<<" per day"<<"\t\t\t\t"<<Address_Hotel_America[i]<<endl;
@@ -480,6 +493,7 @@ class Hotel_Booking :public car{
 			cin>>Days_booked;
 			
 		}
+                // Overloading the == operator.
 		bool operator ==(Hotel_Booking h1){
 			if(Hotel_Selection == h1.Hotel_Selection && Days_booked == h1.Days_booked){
 				return true;
@@ -487,6 +501,7 @@ class Hotel_Booking :public car{
 				return false;
 			}
 		}
+                // Printing the Hotel Booking receipt in a .txt file.
 		void Print_Hotel(Customer_info c,Flight_Details f1){
 			
 			int Charges_per_day;
@@ -549,7 +564,7 @@ class Hotel_Booking :public car{
 			ofstream houtFile;
 			string a = "Stay Booking_"+to_string(d+1)+".txt";
 	        houtFile.open(a);
-	        
+	        // Hotel receipt format.
 	        houtFile<<"*******************************************************************************************************\n";
 	        houtFile<<"*  ----------------------------------CUSTOMER DETAILS-----------------------------------------------  \n";
 	        houtFile<<"*  - First Name : "<<c.first_name<<"                "<<"\n*  - Last Name : "<<c.last_name<<"            \n";
@@ -570,6 +585,8 @@ class Hotel_Booking :public car{
 			cout<<"Your file has been saved with name Stay Booking_"<<d+1<<" and extension *.txt"<<endl;
 			d++;
 		}	
+
+                // Overriding the print function from the Car class.
 		void print(Customer_info c,Flight_Details f1){
 			cout<<"Booking a Car"<<endl;
 			static int v;
