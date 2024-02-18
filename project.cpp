@@ -223,7 +223,8 @@ ostream &operator<<(ostream &out, Flight_Details &f0)
     out << "Travelling Class: " << f0.travelling[f0.Seat_Type-1] << endl;
     return out;
 }
-
+// Ticket and Charges class which ineherits customer_info and Flight_Details classes, and is also declared as friend class of these classes
+// This class will print the ticket output and save it in a .txt file.
 class Ticket_and_Charges : protected Customer_info , protected Flight_Details{
 protected:
     int total;
@@ -232,7 +233,7 @@ protected:
     int b;
 public:
     Ticket_and_Charges() : total(0),a(""),b(0){}
-    
+    //setting departure time which is a.
     void seta(Flight_Details f){
 	    if(f.Departures[f.Departure-1] == "Karachi"){
 	        a = f.Departure_time_Karachi[f.Departure_time-1];
@@ -250,7 +251,7 @@ public:
     }
     int Charges[11] = {150000,110000,120000,130000,140000,150000,145000,135000,125000,105000,0};
     int Class[2] = {40000,0};
-    
+    // setting the charges(0, 40000) for the class type(economic or business) which is declared as b in this class.
     void setb(Flight_Details f){
     	if(f.travelling[f.Seat_Type-1] == "Business Class"){
         	b = Class[f.Seat_Type-1];
@@ -258,10 +259,12 @@ public:
         	b = 0;
     	}
     }	
+// Setting the total charges for the flight, i.e. the normal flight charge + business class charges(if applied , as we have decided in b).
 	void settotal(Flight_Details f){
 
     	total = Charges[f.Destination-1] + b;
     }
+// Deleting the customer_info instance and flight_Details instance.
     void Deletion(Customer_info& c,Flight_Details& f){
     	
     	c.first_name = "";
@@ -291,6 +294,8 @@ public:
 		f.Departure_time = 0;
 		f.Seat_Type = 3;		
 	}
+// Function for outputting the data in a .txt file
+// g is declared for making the static int variable so that it will not overwrite the previous.txt files untill the application is running.
     void Ticket(Customer_info c,Flight_Details f) {
 		
 		static int g;
