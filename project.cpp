@@ -7,6 +7,8 @@
 #include <stdlib.h>
 #include <conio.h>
 using namespace std;
+
+// Function For showing the menu of avaiable options
 void Options()
 {
 
@@ -18,10 +20,11 @@ void Options()
     cout << " \n\t\t\t 1 => Customer Details.\n\t\t\t 2 => Flight Registration.\n\t\t\t 3 => Ticket and Charges.  \n\t\t\t 4 => Cancel reservation and delete the details. \n\t\t\t 5 => Car Reservation.  \n\t\t\t 6 => Hotel Stay Reservation.  \n\t\t\t 7 => Exit.";
     cout << "\n Choose Option: ";
 }
-
+// Customer_info class for saving and showing customer personal information.
 class Customer_info
 {
-    
+    // These are declared as protected so that they can then, 
+    // be used by the child classes (which inherit this customer_info class)
 protected:
 
     string first_name;
@@ -33,12 +36,16 @@ protected:
     char gender;
 
 public:
+	// Contsructor for customer_info class
 	Customer_info() : first_name(""),last_name(""),age(0),CNIC(0),passport_id(0),nationality(""),gender('0'){}
+// The following friend classes can access the private and protected variables of this class.
     friend class Ticket_and_Charges;
     friend class car;
 	friend class Hotel_Booking;
+    // for overloading the cin and cout operator, these functions must be defined outside of the class.
     friend istream &operator>>(istream &in, Customer_info &ci);
     friend ostream &operator<<(ostream &out, Customer_info &ci);
+// Overloading == operator.
     bool operator ==(Customer_info c){
     	if(first_name == c.first_name && last_name == c.last_name && age == c.age && CNIC == c.CNIC && passport_id == c.passport_id && nationality == c.nationality && gender == c.gender){
     		return true;
@@ -48,6 +55,7 @@ public:
 	}
 	 
 };
+// cin definition for customer_info
 istream &operator>>(istream &in, Customer_info &ci)
 {
     cout << "Enter first name: ";
@@ -73,6 +81,7 @@ istream &operator>>(istream &in, Customer_info &ci)
     in >> ci.gender;
     return in;
 }
+//cout definition for customer_info class
 ostream &operator<<(ostream &out, Customer_info &ci)
 {
     out << "Customer Details preview." << endl;
