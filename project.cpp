@@ -326,6 +326,7 @@ public:
 	}
 
 };
+// The car class for booking the car from Airport to Hotel.
 class car : protected Customer_info, protected Flight_Details{
 	protected:
 		
@@ -335,8 +336,10 @@ class car : protected Customer_info, protected Flight_Details{
 		string pickup[7]={"Gate 1","Gate 2","Gate 3","Gate 4","Gate 5","Gate 6","Gate 7"};
 		string customerno;
 	public:
+// Getting the car booing details , note after hotel bookimg you can skip this step and directly book the car from airport to the hotel.
 		void getinfo(){
-			system("CLS");
+			// for clearing the screen system("CLS")
+			system("CLS"); 
 			cout << "\t\t\t ************************************ " << endl;
 		    cout << "\t\t\t            CAR RESERVATION            " << endl;
 		    cout << "\t\t\t ************************************ " << endl;
@@ -348,7 +351,7 @@ class car : protected Customer_info, protected Flight_Details{
 			cin>>destinationCar;	
 		}
 		
-		
+		// Saving the car booking ticket in a .txt file.
 		virtual void print(Customer_info c,Flight_Details f1){
 			cout<<"Booking a Car";
 			static int v;
@@ -377,6 +380,7 @@ class car : protected Customer_info, protected Flight_Details{
 	        v++;
 		}
 };
+// Hotel Booking class which inherits the car class also override its print function.
 class Hotel_Booking :public car{
 	
 	int Hotel_Selection;
