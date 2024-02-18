@@ -46,6 +46,8 @@ public:
     friend istream &operator>>(istream &in, Customer_info &ci);
     friend ostream &operator<<(ostream &out, Customer_info &ci);
 // Overloading == operator.
+// It is defined to check for the customer who is accessing the other classes (flight_details, etc) without providing the information of the customer.
+// BY comparing it with a newly initialized customer_info class instance.
     bool operator ==(Customer_info c){
     	if(first_name == c.first_name && last_name == c.last_name && age == c.age && CNIC == c.CNIC && passport_id == c.passport_id && nationality == c.nationality && gender == c.gender){
     		return true;
@@ -93,9 +95,10 @@ ostream &operator<<(ostream &out, Customer_info &ci)
     out << "Customer gender: " << ci.gender << endl;
     return out;
 }
-
+// Flight_Details class for saving the details for the flight of the customer.
 class Flight_Details
 {
+// Protected Members that can be used by child classes.
 protected:
 
     int Destination;
@@ -105,12 +108,14 @@ protected:
 
 public:
 	Flight_Details() : Destination(11),Departure(4),Departure_time(0),Seat_Type(3){}
+// Friend classes can have access to the protected and private members of this class.
     friend class Ticket_and_Charges;
     friend class car;
     friend class Hotel_Booking;
-
+// Overloading the cin and cout operator for this class.
 	friend istream &operator>>(istream &in, Flight_Details &f1);
     friend ostream &operator<<(ostream &out, Flight_Details &f0);
+//Overloading the == operator for this class.
     bool operator ==(Flight_Details f){
     	if(Destination == f.Destination && Departure == f.Departure && Departure_time == f.Departure_time && Seat_Type == f.Seat_Type){
     		return true;
@@ -118,6 +123,7 @@ public:
 			return false;
 		}
 	}
+// The destination and departure information for the flights to given as choices to the user.
     string destinations[11] = {"America", "South Korea", "China", "Turkey", "Dubai", "Jaddah", "London", "Canada", "Japan", "Nepal","Not Selected"};
     string Departures[4] = {"Karachi", "Lahore", "Islamabad","Not Selected"};
     string Departure_time_Karachi[4] = {"November 2,2022. Saturday 6:00 pm", "November 6,2022. Sunday 12:00 am", "November 10,2022. Wednesday 8:00 pm","Not Selected"};
@@ -127,6 +133,7 @@ public:
     int prices[11] = {150000,110000,120000,130000,140000,150000,145000,135000,125000,105000,0};
     int Class_charges[2] = {40000,0};
 };
+//implementation of cin for flight_Details class
 istream &operator>>(istream &in, Flight_Details &f1)
 {
     cout << "\t\t\t***********************************" << endl;
@@ -192,7 +199,7 @@ istream &operator>>(istream &in, Flight_Details &f1)
     system("CLS");
     return in;
 }
-
+// implementation of cout for flight_Details class.
 ostream &operator<<(ostream &out, Flight_Details &f0)
 {
     out << "\t\t\t ************************************ " << endl;
