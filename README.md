@@ -56,4 +56,4 @@ Follow the on-screen prompts to navigate through the menu and interact with the 
 ## Author
 Khawar Khan
 <br />
-LikedIn: www.linkedin.com/in/khawar-khan
+LinkedIn: www.linkedin.com/in/khawar-khan
